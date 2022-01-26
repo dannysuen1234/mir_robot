@@ -18,8 +18,20 @@
       </attenuation>
       <direction>0 0.5 -0</direction>
     </light>
-
-
+<light type="directional" name="directional">
+      <pose>0 -2 2 0 0 0</pose>
+      <diffuse>0.2 0.2 .2 1</diffuse>
+      <specular>.1 .1 .1 1</specular>
+      <attenuation>
+        <range>100</range>
+        <linear>0.01</linear>
+        <constant>0.2</constant>
+        <quadratic>0.0</quadratic>
+      </attenuation>
+      <direction>0 0 -1</direction>
+      <cast_shadows>true</cast_shadows>
+    </light>
+   
 
   </world>
 </sdf>

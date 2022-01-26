@@ -4,12 +4,11 @@ from nav_msgs.msg import Odometry
 from tf.transformations import euler_from_quaternion
 from geometry_msgs.msg import Point, Twist
 from math import atan2
-import math
 
 x = 0
 y = 0
 theta = 0
-rotate = True
+
 
 def newOdom(msg):
     global x
@@ -48,20 +47,6 @@ while not rospy.is_shutdown():
  
     angle_to_goal = atan2(inc_y, inc_x)
     
-
-    if theta <0:
-	theta += 3.14*2
-
-    if angle_to_goal <0:
-	angle_to_goal += 3.14*2
-
-    if theta>6.18:
-	theta -=6.28
-    if angle_to_goal>6.18:
-	angle_to_goal -=6.28
-
-
-
     if position(goal.x, goal.y, x, y) <0.1:
 		print("arrived")
 		if goal_list:
@@ -71,7 +56,7 @@ while not rospy.is_shutdown():
 			
 		else:
 			break
-    elif abs(angle_to_goal-theta) > 0.1 :
+    elif min(abs(angle_to_goal-theta), 6.28-abs(angle_to_goal-theta))  > 0.1 :
 
         	speed.linear.x = 0.0
         	speed.angular.z = 0.3
