@@ -59,7 +59,7 @@ while not rospy.is_shutdown():
     elif min(abs(angle_to_goal-theta), 6.28-abs(angle_to_goal-theta))  > 0.1 :
 
         	speed.linear.x = 0.0
-        	speed.angular.z = 0.3
+        	speed.angular.z = 0.2
 	
 	
     else:

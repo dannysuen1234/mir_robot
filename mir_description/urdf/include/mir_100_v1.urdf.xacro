@@ -5,6 +5,7 @@
   <xacro:include filename="$(find mir_description)/urdf/include/mir_100.gazebo.xacro" />
   <xacro:include filename="$(find mir_description)/urdf/include/mir_100.transmission.xacro" />
   <xacro:include filename="$(find mir_description)/urdf/include/sick_s300.urdf.xacro" />
+<xacro:include filename="$(find mir_description)/urdf/include/camera_sensor.urdf.xacro" />
 
   <xacro:property name="deg_to_rad" value="0.017453293" />
 
@@ -197,11 +198,22 @@
 
     <joint name="${prefix}base_link_to_back_laser_joint" type="fixed">
       <parent link="${prefix}base_link" />
+
+
       <child link="${prefix}back_laser_link" />
       <origin xyz="-0.3548 -0.2352 0.1914" rpy="0.0 0.0 ${-0.75 * pi}" />  <!-- from visually matching up the meshes of the MiR and the laser scanner -->
     </joint>
-
     <xacro:sick_s300 prefix="${prefix}" link="back_laser_link" topic="b_scan" />
+
+<!-- start defining camera -->
+
+     <xacro:camera_sensor  xyz="0 0 1" 
+                  rpy="0 0 0"
+                  parent="base_footprint" prefix="${prefix}" />
+
+
+<!-- end defining camera -->
+
 
     <!-- Ultrasound sensors -->
     <joint name="${prefix}us_1_joint" type="fixed">   <!-- right ultrasound -->
@@ -244,4 +256,13 @@
 
     <xacro:p3d_base_controller prefix="${prefix}" />
   </xacro:macro>
+
+
+<!-- start defining camera mir:: 
+
+     <xacro:camera_sensor xyz="0 0 ${0.04 + 0.02 + 0.04}" 
+                  rpy="0 0 0"
+                  parent="mir::base_footprint">
+    </xacro:camera_sensor>
+end defining camera -->
 </robot>
